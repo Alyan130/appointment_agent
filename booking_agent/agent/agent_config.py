@@ -8,7 +8,9 @@ API_KEY = os.getenv("API_KEY")
 
 provider = AsyncOpenAI(
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-    api_key=API_KEY
+    api_key=API_KEY,
+    timeout=140,
+    max_retries=3
 )
 
 model = OpenAIChatCompletionsModel(
