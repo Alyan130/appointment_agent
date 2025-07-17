@@ -11,7 +11,7 @@ SUPABASE_TOKEN = os.getenv("SUPABASE_TOKEN")
 PROJECT_ID = os.getenv("PROJECT_ID")
 
 @function_tool
-async def save_agent(name: str, email: str, start_time: str, end_time: str, title: str, date: str ,status: Optional[str] = "pending"):  
+async def save_agent(name: str, email: str, start_time: str, end_time: str, title: str, date: str):  
   '''
   This tool saves the appointment details in a database.
 
@@ -35,7 +35,7 @@ async def save_agent(name: str, email: str, start_time: str, end_time: str, titl
     end_time: {end_time} 
     title: {title} 
     date: {date} 
-    status: {status}
+    status: {"pending"}
    '''
 
   try:
