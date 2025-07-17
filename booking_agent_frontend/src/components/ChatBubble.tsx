@@ -22,7 +22,7 @@ interface BookingChatBubbleProps {
 }
 
 const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({ 
-  apiEndpoint = 'https://appointment-agent.up.railway.app/' 
+  apiEndpoint = 'https://appointment-agent.up.railway.app/booking-agent' 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
