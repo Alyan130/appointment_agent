@@ -1,8 +1,6 @@
-from agents import Agent, Runner, AsyncOpenAI,OpenAIChatCompletionsModel, set_tracing_disabled, function_tool
+from agents import Agent, Runner ,function_tool
 import os
-from agents.mcp import MCPServerStdio ,MCPServer
-import asyncio 
-from typing import Any
+from agents.mcp import MCPServerStdio 
 from dotenv import load_dotenv
 from agent.agent_config import model
 from prompts.instructions import calendar_agent_prompt
@@ -55,7 +53,7 @@ async def calendar_agent(start_time: str, end_time: str, title: str, date: str):
          result = await Runner.run(automation_agent,prompt)
          return result
 
-  except Exception as e:
+  except Exception:
       print("Error occured while creating calendar event!")  
 
 
