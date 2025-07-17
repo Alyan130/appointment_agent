@@ -22,7 +22,7 @@ interface BookingChatBubbleProps {
 }
 
 const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({ 
-  apiEndpoint = 'http://127.0.0.1:8000/booking-agent' 
+  apiEndpoint = 'https://appointment-agent.up.railway.app/' 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when new messages are added
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -56,7 +56,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
     scrollToBottom();
   }, [messages]);
 
-  // Handle form input changes
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -65,17 +65,15 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
     }));
   };
 
-  // Handle chat message input
+
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentMessage(e.target.value);
   };
 
-  // Send chat message
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentMessage.trim()) return;
 
-    // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
@@ -86,7 +84,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
     setCurrentMessage('');
     setIsLoading(true);
 
-    // Simulate assistant response (you can replace this with actual API call)
+    
     setTimeout(() => {
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -98,7 +96,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
     }, 1000);
   };
 
-  // Get assistant response based on user message
+
   const getAssistantResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
     
@@ -118,7 +116,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
     }
   };
 
-  // Handle form submission
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -165,18 +163,18 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
     }
   };
 
-  // Handle opening chat
+  
   const handleOpen = () => {
     setIsOpen(true);
   };
 
-  // Handle closing chat
+  
   const handleClose = () => {
     setIsOpen(false);
     setShowBookingForm(false);
   };
 
-  // Handle clicking outside to close
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (chatRef.current && !chatRef.current.contains(event.target as Node)) {
@@ -192,7 +190,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
 
   return (
     <div ref={chatRef} className="fixed bottom-6 right-6 z-50">
-      {/* Chat Button */}
+    
       <button
         onClick={handleOpen}
         className="bg-gradient-to-r from-blue-500 to-blue-400 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2"
@@ -203,13 +201,13 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
         <span className="font-medium">Book Meeting</span>
       </button>
 
-      {/* Chat Card Popup */}
+     
       <div
         className={`absolute bottom-20 max-h-[700px] right-0 w-[405px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-2xl  border transform transition-all duration-300 origin-bottom-right ${
           isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
         }`}
       >
-        {/* Card Header */}
+      
         <div className="flex justify-between items-center p-4 border-b bg-gradient-to-r from-blue-500 to-blue-400 rounded-t-lg">
           <h3 className="text-white font-semibold">Booking Assistant</h3>
           <button
@@ -222,7 +220,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
           </button>
         </div>
 
-        {/* Messages Area */}
+       
         <div className="h-80 overflow-y-auto p-4 space-y-4">
           {messages.map((message) => (
             <div
@@ -245,7 +243,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
             </div>
           ))}
           
-          {/* Loading indicator */}
+          
           {isLoading && (
             <div className="flex justify-start">
               <div className="bg-gray-100 rounded-lg px-4 py-2">
@@ -264,7 +262,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Booking Form */}
+        
         {showBookingForm && (
           <div className="border-t p-4 bg-gray-50">
             <h4 className="font-medium text-gray-800 mb-3">Booking Form</h4>
@@ -339,7 +337,7 @@ const BookingChatBubble: React.FC<BookingChatBubbleProps> = ({
           </div>
         )}
 
-        {/* Message Input */}
+    
         <div className="border-t p-4">
           <form onSubmit={handleSendMessage} className="flex space-x-2">
             <input
