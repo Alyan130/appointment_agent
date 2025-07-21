@@ -1,14 +1,40 @@
 {
-    "$schema": "https://railway.app/railway.schema.json",
-    "build": {
-      "builder": "NIXPACKS",
-      "buildCommand": "uv sync --locked"
-    },
-    "deploy": {
-      "startCommand": "uvicorn api.main:app --host 0.0.0.0 --port $PORT",
-      "healthcheckPath": "/health",
-      "rootDirectory": "."
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "uvicorn api.main:app --host 0.0.0.0 --port $PORT",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 300,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3,
+    "rootDirectory": "."
+  },
+  "environments": {
+    "production": {
+      "variables": {
+        "PORT": "8080",
+        "NODE_VERSION": "22.17.0",
+        "PYTHON_VERSION": "3.13.2",
+        "UV_SYSTEM_PYTHON": "1"
+      }
+    }
+  },
+  "nixpacks": {
+    "phases": {
+      "install": {
+        "nixPkgs": ["nodejs_22", "npm", "python313", "uv"],
+        "cmds": [
+          "uv sync --locked"
+        ]
+      },
+      "setup": {
+        "cmds": [
+          "npm install -g @supabase/mcp-server-supabase@latest",
+          "npm install -g @cocal/google-calendar-mcp"
+        ]
+      }
     }
   }
-
-  
+}
