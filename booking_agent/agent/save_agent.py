@@ -42,19 +42,30 @@ async def save_agent(name: str, email: str, start_time: str, end_time: str, titl
    async with MCPServerStdio(
        client_session_timeout_seconds= 100,
        cache_tools_list=True,
-       params= {
-        "command": "cmd",
+      #  params= {
+      #   "command": "cmd",
+      #   "args": [
+      #   "/c",
+      #   "npx",
+      #   "-y",
+      #   "@supabase/mcp-server-supabase@latest",
+      #   f"--project-ref={PROJECT_ID}",
+      #   ],
+      #   "env": {
+      #     "SUPABASE_ACCESS_TOKEN": f"{SUPABASE_TOKEN}"
+      #    },
+      #  } 
+      params = {
+        "command": "/usr/local/bin/npx",
         "args": [
-        "/c",
-        "npx",
         "-y",
-        "@supabase/mcp-server-supabase@latest",
+        "@supabase/mcp-server-supabase@latest", 
         f"--project-ref={PROJECT_ID}",
         ],
         "env": {
           "SUPABASE_ACCESS_TOKEN": f"{SUPABASE_TOKEN}"
-         },
-       } 
+        },
+      }
    ) as server:
         supabase_agent= Agent(
         name="Supabase agent",

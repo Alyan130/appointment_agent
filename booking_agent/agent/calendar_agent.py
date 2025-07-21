@@ -36,13 +36,20 @@ async def calendar_agent(start_time: str, end_time: str, title: str, date: str):
    async with MCPServerStdio(
        client_session_timeout_seconds= 100,
        cache_tools_list=True,
-       params= {
-        "command": "npx",
-        "args": ["@cocal/google-calendar-mcp"],
-        "env": {
-          "GOOGLE_OAUTH_CREDENTIALS": f"{GOOGLE_OAUTH_CREDENTIALS}"
+      #  params= {
+      #   "command": "npx",
+      #   "args": ["@cocal/google-calendar-mcp"],
+      #   "env": {
+      #     "GOOGLE_OAUTH_CREDENTIALS": f"{GOOGLE_OAUTH_CREDENTIALS}"
+      #    }
+      #  }
+       params=  {
+           "command": "/usr/local/bin/npx",
+           "args": ["-y", "@cocal/google-calendar-mcp"],
+           "env": {
+           "GOOGLE_OAUTH_CREDENTIALS": f"{GOOGLE_OAUTH_CREDENTIALS}"
+           }
          }
-       }
     ) as server:
          automation_agent = Agent(
           name="Calendar agent",
